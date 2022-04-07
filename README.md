@@ -11,3 +11,5 @@ this is a Rigidbody controller
 thr Grapple Gun uses a Line Renderer to attach and swing on objects labeled ground
 
 breakable script is super simple script that will destroy an object after a set amount of time
+
+all of these scripts can be used independently
