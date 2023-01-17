@@ -101,6 +101,11 @@ public class playerController : MonoBehaviour
         {
             Health -= 1;
         }
+        
+        if (collision.gameObject.tag == "food")
+        {
+            Health += 1;
+        }
 
 
         if (Health <= 0)
