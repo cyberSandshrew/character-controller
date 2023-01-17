@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
 
 public class playerController : MonoBehaviour
 {
@@ -24,10 +26,17 @@ public class playerController : MonoBehaviour
     public float clockwise = 1000.0f;
     public float counterClockwise = -5.0f;
 
+    public int Health = 10;
+
+    public TMP_Text textMeshPro;
+
+    // Start is called before the first frame update
+
+
     void Start()
     {
         //Set Cursor to not be visible
-        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()
@@ -63,7 +72,7 @@ public class playerController : MonoBehaviour
         }
 
 
-        //mouse move
+        // camera mouse move
         transform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * MouseSpeed);
         
         // makes space bar jump and checks if standing on ground
@@ -78,17 +87,31 @@ public class playerController : MonoBehaviour
         {
             GameOver();
         }
+
+        textMeshPro.SetText(Health.ToString());
     }
 
     
 
-    // checks if grounded
+    
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.contacts[0].normal == Vector3.up)
+
+        if (collision.gameObject.tag == "enemy")
         {
-            isGrounded = true;
+            Health -= 1;
         }
+
+
+        if (Health <= 0)
+        {
+            GameOver();
+        }
+
+        //if (collision.contacts[0].normal == Vector3.up)
+        //{
+        isGrounded = true;// checks if grounded
+        //}
     }
     // relods scene on game over
     public void GameOver()
@@ -99,5 +122,8 @@ public class playerController : MonoBehaviour
     {
         score += amount;
         ui.SetScoreText(score);
+
+
     }
+    
 }
